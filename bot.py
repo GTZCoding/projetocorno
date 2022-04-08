@@ -1,26 +1,33 @@
+# bot.py
 import os
 
-from discord.ext import commands
-
+import discord
 from dotenv import load_dotenv
+
 load_dotenv()
+TOKEN = os.getenv('DISCORD_TOKEN')
 
-TOKEN = os.getenv('TOKEN')
+client = discord.Client()
 
-bot = commands.Bot(command_prefix="!")
-
-@bot.event
+@client.event
 async def on_ready():
-    print(f'{bot.user} tá pronto para botar para quebrar!')
+    print(f'{client.user} se conectou no Discord!')
 
-# Reconhecer comandos
-@bot.event
-async def on_message(mensagem):
-    if mensagem.content == "pleus":
-        await mensagem.add_reaction('👍')
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    MensagemDoBot1 = 'Olá, eu sou o C.O.R.N.O!'
+       
+    if message.content == 'Plau':
+        await message.channel.send(MensagemDoBot1)
+    if message.content == 'Pleu':
+        await message.channel.send(f'Não me chame de corno. {MensagemDoBot1}.12*2. {40*15}')
+    if message.content == 'Pliu':
+        await message.channel.send(f'Eu não sei o que é {message.author} mas eu sei o que é {client.user}. Que loucura {message.content}.')
+        print('Que loucura')
+    
+        
+    
+client.run(TOKEN)
 
-@bot.command()
-async def plau(ctx, arg):
-    await ctx.send(arg)
-
-bot.run(TOKEN)
