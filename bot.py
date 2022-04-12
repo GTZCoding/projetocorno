@@ -1,16 +1,30 @@
-import os
+import discord, os
 from discord.utils import get
 from discord.ext import commands
-from discord import FFmpegPCMAudio
 from dotenv import load_dotenv
-
-from urllib import parse, request
-import re
+from youtube_dl import YoutubeDL
 
 load_dotenv()
+
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 bot = commands.Bot(command_prefix="!")
+
+filaDeMusicas = []
+YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'True'}
+FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
+
+def buscaYouTube(item):
+    with YoutubeDL(YDL_OPTIONS) as ydl:
+        print("Busca Youtube:", ydl)
+        try:
+            info = ydl.extract_info("ytsearch:%s" % item, download=False)['entries'][0]
+        except Exception:
+            return False
+        return {
+            'source' : info['formats'][0]['url'],
+            'title' : info['title']
+        }
 
 @bot.event
 async def on_ready():
@@ -46,14 +60,14 @@ async def tchau(ctx):
         await ctx.send("Tá doidão, porra? Tá me dando tchau por quê? Tô quieto aqui, fazendo vários nada, só consumindo sua energia sem pagar nada...")
 
 @bot.command()
-async def bleu(ctx, arg = None):
+async def bleu(ctx, *args):
     # Não estamos prontos pra quebrar.
     prontoParaMusica = False
     # Vamos se preparar. \/
     # O autor está conectado em um canal de áudio?
     if ctx.author.voice:
         # autor colocou a URL ou a palavra para buscar a música?
-        if arg == None:
+        if args == None:
             await ctx.message.add_reaction("<:Dwight4:942070187920850975>")
             await ctx.send("Beleza, você tá num canal de áudio, mas o que você quer ouvir? Posso ser escravo, mas não sou adivinho não, ô jumento.")
             prontoParaMusica = False
@@ -65,7 +79,7 @@ async def bleu(ctx, arg = None):
                 await ctx.send("Achou mesmo que eu não ia te achar aqui?")
                 prontoParaMusica = True
             else:
-                await ctx.author.voice.channel.connect()
+                canalDeVoz = await ctx.author.voice.channel.connect()
                 prontoParaMusica = True
     # Se o solicitante NÃO estiver conectado, Corn o Bot responderá com uma mensagem educada de erro
     else:
@@ -74,7 +88,16 @@ async def bleu(ctx, arg = None):
     # Pronto para botar para quebrar!
     if prontoParaMusica:
         print("Agora ele tá pronto")
-        await ctx.send("Hum... Agora tá tudo certo")
+        query = " ".join(args)
+        musica = buscaYouTube(query)
+        print(musica)
+        if type(musica) == type(True):
+            await ctx.send("Não consegui reproduzir não. Você é burro e colocou o pedido de uma forma burra")
+        else:
+            await ctx.send("Achei esse lixo que você chama de música... Vai entrar na fila para tocar")
+            filaDeMusicas.append(musica)
+            m_url = musica['source']
+            canalDeVoz.play(discord.FFmpegPCMAudio(m_url, **FFMPEG_OPTIONS))
 
 bot.run(TOKEN)
 
