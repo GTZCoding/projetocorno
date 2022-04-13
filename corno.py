@@ -14,18 +14,19 @@ class CornoBot(commands.Cog):
         self.Tocando = False
         self.Pausado = False
         
-        self.canal = None
+        self.canal = None                                                            
 
         self.ListaDeMusicas = []
         self.MusicaAtual = ""
 
-    def buscaYouTube(self, busca):
+    def buscaYouTube(self, busca, solicitante):
         with YoutubeDL(CornoBot.OPCOES_YT) as ytdl:
             try:
                 PrimeiroResultado = ytdl.extract_info(f'ytsearch:{busca}', download=False)['entries'][0]
                 return {
                     'source' : PrimeiroResultado['formats'][0]['url'],
-                    'title' : PrimeiroResultado['title']
+                    'title' : PrimeiroResultado['title'],
+                    'solicitante' : solicitante
                     }
             except Exception as e:
                 print(f'Erro ao tentar buscar no YouTube. Veja como foi a busca: {busca}\nERRO: {e}')
@@ -80,7 +81,7 @@ class CornoBot(commands.Cog):
                 await ctx.message.add_reaction("<:Dwight4:942070187920850975>")
                 await ctx.send("Posso ser escravo, mas não sou adivinho, ô jumento. O que você quer ouvir?")
             else:
-                musica = self.buscaYouTube(pedido)
+                musica = self.buscaYouTube(pedido, ctx.author.display_name)
                 if type(musica) == type(True):
                     await ctx.send("Não achei nada dessa bosta que você escreveu. Você é burro e fez o pedido de uma forma burra... Melhore.")
                 else:
@@ -96,17 +97,20 @@ class CornoBot(commands.Cog):
             self.Tocando = False
             self.Pausado = True
             self.canal.pause()
+            await ctx.send(f'Pausei "{self.MusicaAtual[0]["title"]}".')
         elif self.Pausado:
             self.canal.resume()
 
     @commands.command(name='pliu', help='Vou voltar a tocar a música que tava rodando.')
     async def pliu(self, ctx, *args):
         if self.Pausado:
+            await ctx.send(f'Voltando a tocar "{self.MusicaAtual[0]["title"]}".')
             self.canal.resume()
 
     @commands.command(name='plue', help='Vou pular a tocar a música atual que estiver rodando.')
     async def plue(self, ctx):
         if self.canal != None and self.canal:
+            await ctx.send(f'Ok, pulando a "{self.MusicaAtual[0]["title"]}". Não precisa gritar.')
             self.MusicaAtual = ""
             self.canal.stop()
             await self.TocarMusica(ctx)
@@ -116,10 +120,10 @@ class CornoBot(commands.Cog):
         playlist = ""
         for x in range(0, len(self.ListaDeMusicas)):
             if x > 4: break
-            playlist += str(x+1) + ' - ' + self.ListaDeMusicas[x][0]['title'] + '\n'
+            playlist += str(x+1) + ' - ' + self.ListaDeMusicas[x][0]['title'] + ' (pedido por: ' + self.ListaDeMusicas[x][0]['solicitante'] + ')' + '\n'
 
         if self.MusicaAtual != "" and playlist == "":
-            await ctx.send(f'Agora está tocando "{self.MusicaAtual[0]["title"]}" e não tenho mais nada para tocar')
+            await ctx.send(f'Agora está tocando "{self.MusicaAtual[0]["title"]}" (pedido por: {self.ListaDeMusicas[x][0]["solicitante"]}) e não tenho mais nada para tocar')
         elif self.MusicaAtual != "" and playlist != "":
             await ctx.send(f'Agora está tocando "{self.MusicaAtual[0]["title"]}".\n\nAinda vai tocar isso aqui ó:\n{playlist}')
         else:
