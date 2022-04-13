@@ -10,10 +10,16 @@ A língua de programação esscolhida é *Python*, porque os membros deste servi
 - **!plau** - Tocar músicas
 - **!pleu** - Pausar músicas
 - **!pliu** - Voltar a tocar
-- **!pleu** - Pular músicas
+- **!plue** - Pular músicas
 - **!playlist** - Ver lista de músicas que serão reproduzidas
 - **!limpa** - Parar música e limpar playlis
 - **!tchau** - Desconectar bot
+
+### Update 1.2 - 13/04/2022
+
+- Implementação de playlists.
+- O Bot agora diz qual é a música atual que está tocando e retorna quais músicas estão na lista.
+- Correção na documentação, o comando correto para pular músicas é "plue".
 
 ### Update 1.1 - 12/04/2022
 
