@@ -15,6 +15,44 @@ A língua de programação esscolhida é *Python*, porque os membros deste servi
 - **!limpa** - Parar música e limpar playlis
 - **!tchau** - Desconectar bot
 
+## Como instalar
+
+### Baixe o repositório em seu PC
+
+    git clone https://github.com/GTZCoding/projetocorno.git
+
+### Instale o FFmpeg
+
+No windows, acompanhe [este tutorial](https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/)
+
+No Ubuntu, basta executar o comando abaixo após realizar um *apt update*:
+
+`sudo apt install ffmpeg`
+
+Para testar, após instalação, digite no console
+
+`ffmpeg -version`
+
+### Crie um ambiente virtual no Python e instale os requerimentos
+
+Crie ambiente virtual com  `python3 -m venv venv` e ative-o com `source venv/bin/activate`
+
+Instale os requerimentos
+`pip install -r requerimentos.txt`
+
+### Obtenha as credenciais e execute
+
+Obtenha o CLIENT_SECRET do Bot no [site de desenvolvedor do Discord](https://discord.com/developers/applications "site de desenvolvedor do Discord") e crie um arquivo chamado ".env" desta forma:
+
+    DISCORD_TOKEN = CLIENT_SECRET_AQUI
+
+Para executar, basta executar `python3 main.py`. Você verá a mensagem `CornoBot#6897 se conectou no Discord!` em seu Console.
+Para parar o Bot, basta apertar `CTRL + C`
+
+### Update 1.2.1 - 13/04/2022
+
+- Guia para instalação e documentação corrigida. 
+
 ### Update 1.2 - 13/04/2022
 
 - Implementação de playlists.
