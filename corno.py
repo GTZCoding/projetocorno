@@ -84,7 +84,7 @@ class CornoBot(commands.Cog):
                 if type(musica) == type(True):
                     await ctx.send("Não achei nada dessa bosta que você escreveu. Você é burro e fez o pedido de uma forma burra... Melhore.")
                 else:
-                    await ctx.send(f"Procurei por {pedido}... Vai entrar na fila para tocar.")
+                    await ctx.send(f'Procurei por "{pedido}"... Vai tocar agora... Ou em alguma hora.')
                     self.ListaDeMusicas.append([musica, canal])
 
                     if self.Tocando == False:
@@ -131,6 +131,23 @@ class CornoBot(commands.Cog):
             self.canal.stop()
         self.ListaDeMusicas = []
         await ctx.send("Graças a Deus pararam de se torturar.")
+
+    @commands.command(name='ajuda', aliases=["comando", "comandos"], help='Vou mandar a lista de comandos disponíveis..')
+    async def ajuda(self, ctx):
+        await ctx.send("""
+        Ih alá... O caba precisa de ajudinha.
+
+        `!ajuda` ou `!comandos` = Mostrar este menu
+        `!plau nome ou link da música` = Tocar músicas
+        `!pleu` = Pausar músicas
+        `!pliu` = Voltar a tocar
+        `!plue` = Pular músicas
+        `!playlist` = Ver lista de músicas que serão reproduzidas
+        `!limpa` Parar música e limpar playlis
+        `!tchau` Desconectar bot
+
+        ```Eu não executo playlists nem reproduzo Spotify. Adivinha de quem é a culpa?```
+        """)
         
     @commands.command(name='tchau', help='Vou de base, F no chat.')
     async def tchau(self, ctx):

@@ -5,8 +5,9 @@ Este repositório consiste em fazer um Bot para o servidor de Discsord do GTZ, q
 
 A língua de programação esscolhida é *Python*, porque os membros deste servidor gostam de cobra. É importante salientar que, se houvesse necessidade, usaríamos o " *MongoDB* ", devido ao nome peculiar do serviço de banco de dados
 
-### Comandos Diretrizes:
+### Comandos:
 
+- **!ajuda ou !comandos** - Mostrar menu com todos os comandos disponíveis
 - **!plau** - Tocar músicas
 - **!pleu** - Pausar músicas
 - **!pliu** - Voltar a tocar
@@ -48,6 +49,12 @@ Obtenha o CLIENT_SECRET do Bot no [site de desenvolvedor do Discord](https://dis
 
 Para executar, basta executar `python3 main.py`. Você verá a mensagem `CornoBot#6897 se conectou no Discord!` em seu Console.
 Para parar o Bot, basta apertar `CTRL + C`
+
+
+### Update 1.2.2 - 13/04/2022
+
+- Implementado comando !ajuda, para auxiliar usuários no discord.
+- Correção em algumas falas do Corno
 
 ### Update 1.2.1 - 13/04/2022
 
