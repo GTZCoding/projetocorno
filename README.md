@@ -7,9 +7,17 @@ A língua de programação esscolhida é *Python*, porque os membros deste servi
 
 ### Comandos Diretrizes:
 
-- Reproduzir músicas: !plau
-- Pular músicas: !pleu
-- Parar músicas: !bleu
+- **!plau**     Tocar músicas
+- **!pleu**     Pausar músicas
+- **!pliu**     Voltar a tocar
+- **!pleu**     Pular músicas
+- **!playlist** Ver lista de músicas que serão reproduzidas
+- **!limpa**    Parar música e limpar playlis
+- **!tchau**    Desconectar bot:
+
+### Update 1.1 - 12/04/2022
+
+- Bot totalmente funcional neste momento. Aceita os comandos acima. Vai passar por um período de beta-testing para ver quais os problemas que aparecerão.
 
 ### Update 1.0 - 09/04/2022
 
