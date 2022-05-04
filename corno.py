@@ -118,15 +118,17 @@ class CornoBot(commands.Cog):
     @commands.command(name='playlist', help='Vou mostrar a lista de músicas.')
     async def playlist(self, ctx):
         playlist = ""
-        for x in range(0, len(self.ListaDeMusicas)):
-            if x > 4: break
-            playlist += str(x+1) + ' - ' + self.ListaDeMusicas[x][0]['title'] + ' (pedido por: ' + self.ListaDeMusicas[x][0]['solicitante'] + ')' + '\n'
+        print("DEPURAÇÃO 1", self.MusicaAtual)
+        print("DEPURAÇÃO 2:", self.ListaDeMusicas)
 
-        if self.MusicaAtual != "" and playlist == "":
-            await ctx.send(f'Agora está tocando "{self.MusicaAtual[0]["title"]}" (pedido por: {self.ListaDeMusicas[x][0]["solicitante"]}) e não tenho mais nada para tocar')
-        elif self.MusicaAtual != "" and playlist != "":
-            await ctx.send(f'Agora está tocando "{self.MusicaAtual[0]["title"]}".\n\nAinda vai tocar isso aqui ó:\n{playlist}')
-        else:
+        if self.MusicaAtual and not self.ListaDeMusicas:
+            await ctx.send(f'Agora está tocando "{self.MusicaAtual[0]["title"]}" (pedido por: {self.MusicaAtual[0]["solicitante"]}) e não tenho mais nada para tocar')
+        elif self.MusicaAtual and self.ListaDeMusicas:
+                for x in range(0, len(self.ListaDeMusicas)):
+                    if x > 5: break
+                    playlist += str(x+1) + ' - ' + self.ListaDeMusicas[x][0]['title'] + ' (pedido por: ' + self.ListaDeMusicas[x][0]['solicitante'] + ')' + '\n'
+                await ctx.send(f'Agora está tocando "{self.MusicaAtual[0]["title"]}".\n\nAinda vai tocar isso aqui ó:\n{playlist}')
+        elif not self.MusicaAtual and not self.ListaDeMusicas:
             await ctx.send("Tem nada aqui não, menó.")
 
     @commands.command(name='limpa', help='Vou parar a música atual e apagar toda a playlist atual que estiver rodando.')

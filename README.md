@@ -50,27 +50,27 @@ Obtenha o CLIENT_SECRET do Bot no [site de desenvolvedor do Discord](https://dis
 Para executar, basta executar `python3 main.py`. Você verá a mensagem `CornoBot#6897 se conectou no Discord!` em seu Console.
 Para parar o Bot, basta apertar `CTRL + C`
 
+### Update 3.1.1 - 04/05/2022
 
-### Update 1.2.2 - 13/04/2022
+- Correção no comando playlist, que não era executado corretamente quando havia somente uma música na playlist.
+
+### Update 3.1.0 - 13/04/2022
 
 - Implementado comando !ajuda, para auxiliar usuários no discord.
 - Correção em algumas falas do Corno
 
-### Update 1.2.1 - 13/04/2022
-
-- Guia para instalação e documentação corrigida. 
-
-### Update 1.2 - 13/04/2022
+### Update 3.0.0 - 13/04/2022
 
 - Implementação de playlists.
 - O Bot agora diz qual é a música atual que está tocando e retorna quais músicas estão na lista.
 - Correção na documentação, o comando correto para pular músicas é "plue".
+- Guia para instalação e documentação corrigida. 
 
-### Update 1.1 - 12/04/2022
+### Update 2.0.0 - 12/04/2022
 
-- Bot totalmente funcional neste momento. Aceita os comandos acima. Vai passar por um período de beta-testing para ver quais os problemas que aparecerão.
+- Bot totalmente funcional neste momento. Aceita os comandos listados no README. Vai passar por um período de beta-testing para ver quais os problemas que aparecerão.
 
-### Update 1.0 - 09/04/2022
+### Update 1.0.0 - 09/04/2022
 
 - O bot está se conectando ao Discord, consegue identificar os comandos.
 
